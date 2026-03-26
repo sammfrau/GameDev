@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://cvdueawrvpk2b"]
+
+[ext_resource type="Texture2D" uid="uid://bs1jaoysow225" path="res://textures/stone.png" id="1_gdxm2"]
+[ext_resource type="Script" uid="uid://cygln6pahmjna" path="res://scripts/gravity_zone.gd" id="2_gd6oe"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h8ms6"]
+albedo_texture = ExtResource("1_gdxm2")
+texture_filter = 0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ggt7d"]
+material = SubResource("StandardMaterial3D_h8ms6")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0k1rn"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_48b8c"]
+radius = 1.0
+height = 4.0
+
+[node name="CapsulePlanet" type="StaticBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_ggt7d")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_0k1rn")
+
+[node name="Area3D" type="Area3D" parent="."]
+gravity_point_unit_distance = 21.6
+gravity_point_center = Vector3(0, 0, 0)
+gravity_direction = Vector3(0, 0, 0)
+script = ExtResource("2_gd6oe")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("CapsuleShape3D_48b8c")
+
+[connection signal="body_entered" from="Area3D" to="Area3D" method="_on_body_entered"]
+[connection signal="body_exited" from="Area3D" to="Area3D" method="_on_body_exited"]

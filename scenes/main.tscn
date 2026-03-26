@@ -1,0 +1,61 @@
+[gd_scene load_steps=10 format=3 uid="uid://fmkvnae8fgju"]
+
+[ext_resource type="BoxMesh" uid="uid://3aivv46w7rls" path="res://meshes/water.tres" id="1_0wfyh"]
+[ext_resource type="PackedScene" uid="uid://cm7gi2r416f0o" path="res://scenes/player.tscn" id="1_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://cehe6m24d4fri" path="res://scenes/cube_planet.tscn" id="2_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://cvdueawrvpk2b" path="res://scenes/capsule_planet.tscn" id="3_tipki"]
+[ext_resource type="Texture2D" uid="uid://bgw00mem2j7a0" path="res://textures/skybox.png" id="4_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://b1d11k77igwhu" path="res://scenes/house.tscn" id="6_o6xl0"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tefeu"]
+sky_top_color = Color(7.6319244e-05, 6.0271705e-05, 0.00062715705, 1)
+sky_horizon_color = Color(0.14904413, 0.15295964, 0.12932843, 1)
+sky_cover = ExtResource("4_jyhfs")
+ground_bottom_color = Color(0.06666667, 0.105882354, 0.078431375, 1)
+ground_horizon_color = Color(0.14901961, 0.15294118, 0.12941177, 1)
+energy_multiplier = 2.0
+
+[sub_resource type="Sky" id="Sky_jyhfs"]
+sky_material = SubResource("ProceduralSkyMaterial_tefeu")
+
+[sub_resource type="Environment" id="Environment_o6xl0"]
+background_mode = 2
+background_energy_multiplier = 2.0
+sky = SubResource("Sky_jyhfs")
+ambient_light_sky_contribution = 0.2
+
+[node name="World" type="Node3D"]
+
+[node name="Player" parent="." instance=ExtResource("1_tbgi4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 136, -8)
+acceleration = 5.0
+gravity = 10.0
+jump_velocity = 8.0
+mouse_sensitivity = 0.005
+min_pitch = -75.0
+max_pitch = 75.0
+
+[node name="CapsulePlanet" parent="." instance=ExtResource("3_tipki")]
+transform = Transform3D(6.973363, -0.61009014, 1.4545683e-08, 0.5529294, 6.320013, 2.958328, -0.25783527, -2.9470708, 6.3441544, 5.935012, 128.26367, -5.0908546)
+
+[node name="CubePlanet" parent="." instance=ExtResource("2_o6xl0")]
+transform = Transform3D(13.594614, -6.3392744, 0, 5.7453322, 12.320907, 6.3392735, -2.6790924, -5.7453337, 13.594616, 0, 100, 0)
+
+[node name="House" parent="." instance=ExtResource("6_o6xl0")]
+transform = Transform3D(0.45315385, -0.21130912, 0, 0.19151108, 0.4106968, 0.21130921, -0.08930313, -0.19151117, 0.45315382, -3, 106, -3)
+
+[node name="Water" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.003, 0, -0.068)
+mesh = ExtResource("1_0wfyh")
+skeleton = NodePath("")
+
+[node name="Star" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.50000006, -0.61237246, 0.61237234, 0, 0.7071067, 0.7071068, -0.8660254, 0.35355344, -0.35355338, 0, 0, 0)
+light_color = Color(0.9344504, 0.9066487, 0.7865868, 1)
+shadow_enabled = true
+shadow_blur = 0.1
+directional_shadow_mode = 0
+directional_shadow_max_distance = 50.0
+
+[node name="Space" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_o6xl0")

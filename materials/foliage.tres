@@ -1,0 +1,17 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://bsf04kea26m54"]
+
+[ext_resource type="Shader" uid="uid://dfbaksw2utpi0" path="res://scripts/foliage.tres" id="1_xsojn"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0pxs6"]
+noise_type = 0
+fractal_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3ybpd"]
+noise = SubResource("FastNoiseLite_0pxs6")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_xsojn")
+shader_parameter/WindNoise = SubResource("NoiseTexture2D_3ybpd")
+shader_parameter/BaseColor = Color(0.067951, 0.153191, 0.066512, 1)
+shader_parameter/BaseColor2 = Color(0.311137, 0.62, 0.2418, 1)

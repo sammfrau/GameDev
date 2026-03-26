@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1odnoqyn8px3"]
+
+[ext_resource type="Material" uid="uid://bsf04kea26m54" path="res://materials/foliage.tres" id="2_4dxek"]
+[ext_resource type="ArrayMesh" uid="uid://d33o5tlnjjx4e" path="res://models/foliage.obj" id="3_3wrhr"]
+
+[node name="Foilage" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = ExtResource("2_4dxek")
+mesh = ExtResource("3_3wrhr")
