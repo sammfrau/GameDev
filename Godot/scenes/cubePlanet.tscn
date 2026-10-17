@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://cehe6m24d4fri"]
+
+[ext_resource type="Texture2D" uid="uid://bn7ii5dn62rhi" path="res://textures/grass.png" id="1_ikpfh"]
+[ext_resource type="Script" uid="uid://pdm241itbmpf" path="res://scripts/planetStick.gd" id="2_so8mn"]
+[ext_resource type="PackedScene" uid="uid://d1odnoqyn8px3" path="res://scenes/foliage.tscn" id="3_r8l4m"]
+[ext_resource type="Script" uid="uid://p1u2egwyeunw" path="res://scripts/gravityZone.gd" id="3_so8mn"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pjqmy"]
+albedo_texture = ExtResource("1_ikpfh")
+texture_filter = 0
+
+[sub_resource type="BoxMesh" id="BoxMesh_iuqku"]
+material = SubResource("StandardMaterial3D_pjqmy")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ni8fh"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_aisq3"]
+size = Vector3(2, 2, 2)
+
+[node name="CubePlanet" type="StaticBody3D" unique_id=1148046983]
+
+[node name="SurfaceMeshInstance3D" type="MeshInstance3D" parent="." unique_id=245816258]
+mesh = SubResource("BoxMesh_iuqku")
+skeleton = NodePath("../SurfaceCollisionShape3D")
+
+[node name="SurfaceCollisionShape3D" type="CollisionShape3D" parent="." unique_id=2005693906]
+shape = SubResource("BoxShape3D_ni8fh")
+
+[node name="SurfaceStickArea3D" type="Area3D" parent="." unique_id=1799103524]
+script = ExtResource("2_so8mn")
+
+[node name="SurfaceStickCollisionShape3D" type="CollisionShape3D" parent="SurfaceStickArea3D" unique_id=604507480]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, 0)
+shape = SubResource("BoxShape3D_ni8fh")
+
+[node name="GravityArea3D" type="Area3D" parent="." unique_id=1452828864]
+gravity_point_unit_distance = 21.6
+gravity_point_center = Vector3(0, 0, 0)
+gravity_direction = Vector3(0, 0, 0)
+script = ExtResource("3_so8mn")
+gravity_force = 6.0
+
+[node name="GravityCollisionShape3D" type="CollisionShape3D" parent="GravityArea3D" unique_id=1897619406]
+shape = SubResource("BoxShape3D_aisq3")
+
+[node name="FoilageOverall" type="Node3D" parent="." unique_id=1449737362]
+
+[node name="FoilageZone1" parent="FoilageOverall" unique_id=546881235 instance=ExtResource("3_r8l4m")]
+transform = Transform3D(1.3, 0, 0, 0, 0.1, 0, 0, 0, 1.15, 0.01, 0.5, 0.08)
+
+[node name="FoilageZone2" parent="FoilageOverall" unique_id=99730512 instance=ExtResource("3_r8l4m")]
+transform = Transform3D(-5.6824803e-08, -0.1, 0, 1.3, -4.371139e-09, 0, 0, 0, 1.15, -0.5, 0.01, 0.08)
+
+[node name="FoilageZone3" parent="FoilageOverall" unique_id=263223601 instance=ExtResource("3_r8l4m")]
+transform = Transform3D(1.3, 0, 0, 0, -4.371139e-09, -1.15, 0, 0.1, -5.0268095e-08, 0.01, -0.08, 0.5)
+
+[node name="FoilageZone4" parent="FoilageOverall" unique_id=754577190 instance=ExtResource("3_r8l4m")]
+transform = Transform3D(1.3, 0, 0, 0, 1.1924881e-09, 1.15, 0, -0.1, 1.37136125e-08, 0.01, 0.08, -0.5)
+
+[node name="FoilageZone5" parent="FoilageOverall" unique_id=551517166 instance=ExtResource("3_r8l4m")]
+transform = Transform3D(-5.6824803e-08, 0.1, 0, -1.3, -4.371139e-09, 0, 0, 0, 1.2, 0.5, -0.01, 0.08)
+
+[node name="FoilageZone6" parent="FoilageOverall" unique_id=2049970797 instance=ExtResource("3_r8l4m")]
+transform = Transform3D(1.3, 0, 0, 0, -0.1, -1.0053619e-07, 0, 8.742278e-09, -1.15, -0.01, -0.5, -0.08)
+
+[connection signal="body_entered" from="SurfaceStickArea3D" to="SurfaceStickArea3D" method="_on_body_entered"]
+[connection signal="body_exited" from="SurfaceStickArea3D" to="SurfaceStickArea3D" method="_on_body_exited"]
+[connection signal="body_entered" from="GravityArea3D" to="GravityArea3D" method="_on_body_entered"]
+[connection signal="body_exited" from="GravityArea3D" to="GravityArea3D" method="_on_body_exited"]

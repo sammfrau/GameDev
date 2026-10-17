@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://cvdueawrvpk2b"]
+
+[ext_resource type="Texture2D" uid="uid://bs1jaoysow225" path="res://textures/stone.png" id="1_gdxm2"]
+[ext_resource type="Script" uid="uid://pdm241itbmpf" path="res://scripts/planetStick.gd" id="2_66nsb"]
+[ext_resource type="Script" uid="uid://p1u2egwyeunw" path="res://scripts/gravityZone.gd" id="3_66nsb"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h8ms6"]
+albedo_texture = ExtResource("1_gdxm2")
+texture_filter = 0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ggt7d"]
+material = SubResource("StandardMaterial3D_h8ms6")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0k1rn"]
+
+[node name="CapsulePlanet" type="StaticBody3D" unique_id=2083370423]
+
+[node name="SurfaceMeshInstance3D" type="MeshInstance3D" parent="." unique_id=1078750724]
+mesh = SubResource("CapsuleMesh_ggt7d")
+
+[node name="SurfaceCollisionShape3D" type="CollisionShape3D" parent="." unique_id=1803318785]
+shape = SubResource("CapsuleShape3D_0k1rn")
+
+[node name="SurfaceStickArea3D" type="Area3D" parent="." unique_id=749271239]
+script = ExtResource("2_66nsb")
+
+[node name="SurfaceStickCollisionShape3D" type="CollisionShape3D" parent="SurfaceStickArea3D" unique_id=2002506178]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_0k1rn")
+
+[node name="GravityArea3D" type="Area3D" parent="." unique_id=1448017111]
+gravity_point_unit_distance = 21.6
+gravity_point_center = Vector3(0, 0, 0)
+gravity_direction = Vector3(0, 0, 0)
+script = ExtResource("3_66nsb")
+gravity_force = 6.0
+
+[node name="GravityCollisionShape3D" type="CollisionShape3D" parent="GravityArea3D" unique_id=1299945129]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_0k1rn")
+
+[connection signal="body_entered" from="SurfaceStickArea3D" to="SurfaceStickArea3D" method="_on_body_entered"]
+[connection signal="body_exited" from="SurfaceStickArea3D" to="SurfaceStickArea3D" method="_on_body_exited"]
+[connection signal="body_entered" from="GravityArea3D" to="GravityArea3D" method="_on_body_entered"]
+[connection signal="body_exited" from="GravityArea3D" to="GravityArea3D" method="_on_body_exited"]

@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://fmkvnae8fgju"]
+
+[ext_resource type="PackedScene" uid="uid://cm7gi2r416f0o" path="res://scenes/player.tscn" id="1_tefeu"]
+[ext_resource type="PackedScene" uid="uid://cvdueawrvpk2b" path="res://scenes/capsulePlanet.tscn" id="2_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://cehe6m24d4fri" path="res://scenes/cubePlanet.tscn" id="3_tipki"]
+[ext_resource type="PackedScene" uid="uid://b1d11k77igwhu" path="res://scenes/house.tscn" id="4_85g3d"]
+[ext_resource type="PackedScene" uid="uid://dfep6bdcwe0v1" path="res://scenes/dayNightCycle.tscn" id="5_choun"]
+[ext_resource type="PackedScene" uid="uid://bpwpdsu1jarp0" path="res://scenes/world.tscn" id="6_tefeu"]
+
+[node name="Main" type="Node3D" unique_id=1594098075]
+
+[node name="Player" parent="." unique_id=1453807845 instance=ExtResource("1_tefeu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.7744923, 197.78577, 380.8904)
+
+[node name="CapsulePlanet" parent="." unique_id=894356023 instance=ExtResource("2_o6xl0")]
+transform = Transform3D(0.36487675, -0.2644342, -0.89271474, 0, 0.95881975, -0.2840154, 0.93105584, 0.10363061, 0.34985104, -6.6206837, 196.42857, 380.58856)
+
+[node name="CubePlanet" parent="." unique_id=890128006 instance=ExtResource("3_tipki")]
+transform = Transform3D(3.0292964, -3.481267, -1.9246147, 1.3392761, 3.1705108, -3.626872, 3.7456245, 1.681856, 2.853359, -2.0746632, 189.2525, 379.50626)
+
+[node name="House" parent="CubePlanet" unique_id=336303957 instance=ExtResource("4_85g3d")]
+transform = Transform3D(0.033333335, -1.3969839e-09, 2.7939677e-09, 9.313226e-10, 0.033333324, 5.5879354e-09, -2.7939677e-09, -5.5879354e-09, 0.03333333, 0.007668495, 0.48968554, -0.012214184)
+
+[node name="DayNightCycle" parent="." unique_id=1179234633 instance=ExtResource("5_choun")]
+
+[node name="World" parent="." unique_id=211676675 instance=ExtResource("6_tefeu")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)

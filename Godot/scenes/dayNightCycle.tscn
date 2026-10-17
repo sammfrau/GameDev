@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://dfep6bdcwe0v1"]
+
+[ext_resource type="Script" uid="uid://b56ohivepi2po" path="res://scripts/dayNightCycle.gd" id="1_0sqoo"]
+[ext_resource type="Texture2D" uid="uid://bgw00mem2j7a0" path="res://textures/skybox.png" id="2_1b4lw"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_aw2oj"]
+sky_cover = ExtResource("2_1b4lw")
+ground_bottom_color = Color(0.13725491, 0.49019608, 0.9411765, 1)
+ground_curve = 1.0
+sun_angle_max = 5.0
+
+[sub_resource type="Sky" id="Sky_1b4lw"]
+sky_material = SubResource("ProceduralSkyMaterial_aw2oj")
+
+[sub_resource type="Environment" id="Environment_0sqoo"]
+background_mode = 2
+sky = SubResource("Sky_1b4lw")
+ambient_light_source = 3
+tonemap_mode = 3
+
+[node name="DayNightCycle" type="Node3D" unique_id=1179234633 node_paths=PackedStringArray("sun_light", "moon_light", "world_environment")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+script = ExtResource("1_0sqoo")
+sun_light = NodePath("SunDirectionalLight3D")
+moon_light = NodePath("MoonDirectionalLight3D")
+world_environment = NodePath("SpaceWorldEnvironment")
+
+[node name="SunDirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1250537139]
+light_angular_distance = 2.0
+shadow_enabled = true
+directional_shadow_mode = 0
+directional_shadow_max_distance = 15.0
+directional_shadow_pancake_size = 1.0
+
+[node name="MoonDirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=214976275]
+light_angular_distance = 2.0
+light_specular = 2.0
+shadow_enabled = true
+directional_shadow_mode = 0
+directional_shadow_max_distance = 15.0
+directional_shadow_pancake_size = 1.0
+
+[node name="SpaceWorldEnvironment" type="WorldEnvironment" parent="." unique_id=511088923]
+environment = SubResource("Environment_0sqoo")
